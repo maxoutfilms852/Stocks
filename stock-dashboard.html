@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0d12" />
+<meta name="color-scheme" content="dark" />
+<title>Global Stock Winners · May 2025 – May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<style>
+  :root {
+    --bg: #0a0d12;
+    --bg-2: #0f131a;
+    --panel: #141922;
+    --panel-2: #1a2030;
+    --line: #232a38;
+    --line-soft: #1c2230;
+    --ink: #e9ecf1;
+    --ink-soft: #aab2c0;
+    --ink-mute: #6f7787;
+    --accent: #e6b450;
+    --accent-2: #f7c873;
+    --gain: #4ade80;
+    --gain-soft: #1e3a2a;
+    --warn: #f59e0b;
+    --risk: #ef4444;
+    --risk-soft: #3a1e22;
+    --info: #60a5fa;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+    --pink: #f472b6;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  html { scroll-behavior: smooth; }
+  body {
+    background:
+      radial-gradient(1100px 600px at 85% -10%, rgba(230,180,80,.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 20%, rgba(96,165,250,.05), transparent 55%),
+      var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 36px 24px 100px; }
+
+  /* ---------- Ticker tape ---------- */
+  .tape {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,13,18,.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 8px 0;
+  }
+  .tape iframe { border: 0 !important; }
+
+  /* ---------- Header ---------- */
+  .top {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 6vw, 60px);
+    line-height: 1.05; letter-spacing: -.02em; margin: 0 0 14px;
+  }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .lede { color: var(--ink-soft); max-width: 640px; font-size: 15px; line-height: 1.6; }
+  .meta {
+    text-align: right; font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-mute); letter-spacing: .14em; line-height: 1.9;
+  }
+  .meta .pulse {
+    display: inline-flex; align-items: center; gap: 8px; color: var(--gain);
+  }
+  .meta .pulse::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gain); box-shadow: 0 0 0 0 rgba(74,222,128,.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(74,222,128,.5); }
+    70%  { box-shadow: 0 0 0 10px rgba(74,222,128,0); }
+    100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  }
+
+  /* ---------- KPI cards ---------- */
+  .kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    margin-bottom: 44px;
+  }
+  .kpi {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--line); border-radius: 14px; padding: 20px;
+    position: relative; overflow: hidden;
+  }
+  .kpi::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: .4;
+  }
+  .kpi .label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    color: var(--ink-mute); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .kpi .value {
+    font-family: var(--serif); font-size: clamp(28px, 4vw, 38px); font-weight: 500;
+    line-height: 1; letter-spacing: -.02em;
+  }
+  .kpi .value.mono { font-family: var(--mono); font-weight: 600; font-size: clamp(24px, 3.5vw, 32px); }
+  .kpi .sub { color: var(--ink-mute); font-size: 12px; margin-top: 10px; }
+  .kpi .accent { color: var(--accent); }
+  .kpi .gain { color: var(--gain); }
+
+  /* ---------- Section header ---------- */
+  section { margin-bottom: 48px; scroll-margin-top: 70px; }
+  .sec-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 20px; gap: 20px; flex-wrap: wrap;
+  }
+  .sec-head h2 {
+    font-family: var(--serif); font-size: clamp(22px, 3.4vw, 30px); font-weight: 400;
+    letter-spacing: -.01em; margin: 0;
+  }
+  .sec-head h2 .num {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    letter-spacing: .2em; margin-right: 12px; vertical-align: middle;
+  }
+  .sec-head p { color: var(--ink-soft); margin: 0; max-width: 520px; font-size: 13.5px; line-height: 1.6; }
+
+  /* ---------- Panels ---------- */
+  .panel {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 22px;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  /* ---------- Chart container ---------- */
+  .chart-host { position: relative; }
+  .chart-host .h {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; gap: 12px;
+  }
+  .chart-host h3 {
+    font-family: var(--serif); font-weight: 500; font-size: 17px; margin: 0;
+  }
+  .chart-host .legend {
+    font-family: var(--mono); font-size: 10px; color: var(--ink-mute);
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .canvas-wrap { position: relative; height: 460px; }
+  .canvas-wrap.short { height: 320px; }
+  .canvas-wrap.tall { height: 540px; }
+
+  /* ---------- Focus chart ---------- */
+  .focus-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .focus-bar .label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
+    color: var(--ink-mute); text-transform: uppercase;
+  }
+  .focus-bar .now {
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    font-weight: 600;
+  }
+  .focus-chart {
+    height: 420px; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--bg-2);
+  }
+
+  /* ---------- Table (desktop) ---------- */
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    text-align: left; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute);
+    padding: 10px 10px; border-bottom: 1px solid var(--line);
+    cursor: pointer; user-select: none; white-space: nowrap;
+  }
+  thead th:hover { color: var(--accent); }
+  thead th.sorted { color: var(--accent); }
+  thead th .arrow { opacity: .5; margin-left: 4px; font-size: 9px; }
+  tbody td {
+    padding: 12px 10px; border-bottom: 1px solid var(--line-soft);
+    vertical-align: middle;
+  }
+  tbody tr { transition: background .15s; }
+  tbody tr:hover { background: rgba(230,180,80,.04); }
+
+  /* ---------- Ticker pill (clickable) ---------- */
+  .tk {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-weight: 600; font-size: 13px;
+    color: var(--ink); letter-spacing: .04em;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(230,180,80,.06); border: 1px solid rgba(230,180,80,.18);
+    cursor: pointer; transition: all .15s; text-decoration: none;
+    white-space: nowrap;
+  }
+  .tk:hover, .tk.active {
+    background: rgba(230,180,80,.16); border-color: var(--accent); color: var(--accent);
+  }
+  .tk .listing {
+    font-family: var(--mono); font-size: 9px; color: var(--ink-mute);
+    letter-spacing: .1em; font-weight: 400;
+  }
+  .tk .ext {
+    font-size: 10px; opacity: .65; margin-left: 1px;
+  }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+  .gain-val { color: var(--gain); font-weight: 600; }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
+    padding: 3px 8px; border-radius: 999px; text-transform: uppercase;
+    background: rgba(255,255,255,.04); color: var(--ink-soft);
+    border: 1px solid var(--line); white-space: nowrap;
+  }
+  .tag.ai      { color: #93c5fd; border-color: rgba(96,165,250,.35); background: rgba(96,165,250,.08); }
+  .tag.uranium { color: #6ee7b7; border-color: rgba(45,212,191,.35); background: rgba(45,212,191,.08); }
+  .tag.defense { color: #fcd34d; border-color: rgba(230,180,80,.4);  background: rgba(230,180,80,.08); }
+  .tag.biotech { color: #f472b6; border-color: rgba(244,114,182,.35); background: rgba(244,114,182,.08); }
+  .tag.metals  { color: #fbbf24; border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.08); }
+  .tag.energy  { color: #fb923c; border-color: rgba(251,146,60,.35); background: rgba(251,146,60,.08); }
+  .tag.space   { color: #a78bfa; border-color: rgba(167,139,250,.35); background: rgba(167,139,250,.08); }
+  .tag.semi    { color: #67e8f9; border-color: rgba(34,211,238,.35); background: rgba(34,211,238,.08); }
+  .tag.spec    { color: #fda4af; border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.08); }
+
+  .stage {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+  .stage .bars { display: inline-flex; gap: 2px; }
+  .stage .bars i {
+    display: inline-block; width: 4px; height: 12px;
+    background: var(--line); border-radius: 1px;
+  }
+  .stage[data-stage="early"] .bars i:nth-child(1) { background: var(--gain); }
+  .stage[data-stage="early/mid"] .bars i:nth-child(1),
+  .stage[data-stage="early/mid"] .bars i:nth-child(2) { background: var(--gain); }
+  .stage[data-stage="mid"] .bars i:nth-child(1),
+  .stage[data-stage="mid"] .bars i:nth-child(2) { background: var(--accent); }
+  .stage[data-stage="mid/late"] .bars i:nth-child(1),
+  .stage[data-stage="mid/late"] .bars i:nth-child(2),
+  .stage[data-stage="mid/late"] .bars i:nth-child(3) { background: var(--accent); }
+  .stage[data-stage="late"] .bars i { background: var(--risk); }
+
+  /* ---------- Filter chips ---------- */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .chip {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; padding: 8px 13px; border-radius: 999px;
+    background: var(--panel); border: 1px solid var(--line);
+    color: var(--ink-soft); cursor: pointer; transition: all .15s;
+  }
+  .chip:hover { color: var(--ink); border-color: var(--ink-mute); }
+  .chip.active { background: var(--accent); color: #1a1505; border-color: var(--accent); font-weight: 600; }
+
+  /* ---------- Theme cards ---------- */
+  .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .theme-card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 20px; position: relative;
+    transition: border-color .2s, transform .2s;
+  }
+  .theme-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .theme-card .icon {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em;
+    color: var(--ink-mute); margin-bottom: 12px;
+  }
+  .theme-card h3 {
+    font-family: var(--serif); font-size: 20px; font-weight: 500; margin: 0 0 8px;
+  }
+  .theme-card .desc { font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 14px; }
+  .theme-card .stat-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 12px; border-top: 1px solid var(--line);
+  }
+  .theme-card .stat-row .v {
+    font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--accent);
+  }
+  .theme-card .stat-row .l {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .heat {
+    height: 4px; border-radius: 2px; background: var(--line);
+    margin-top: 12px; overflow: hidden;
+  }
+  .heat span {
+    display: block; height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--gain));
+  }
+
+  /* ---------- Pattern flow ---------- */
+  .pattern {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    position: relative;
+  }
+  .p-step {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 20px; position: relative;
+  }
+  .p-step .step-n {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em;
+    color: var(--accent); margin-bottom: 10px;
+  }
+  .p-step h4 {
+    font-family: var(--serif); font-size: 16px; font-weight: 500;
+    margin: 0 0 8px;
+  }
+  .p-step p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+  /* ---------- Risk panel ---------- */
+  .risks {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .risk-card {
+    background: linear-gradient(180deg, rgba(239,68,68,.05), transparent);
+    border: 1px solid rgba(239,68,68,.2);
+    border-radius: 12px; padding: 18px;
+  }
+  .risk-card .lvl {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--risk); margin-bottom: 10px;
+  }
+  .risk-card .lvl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--risk); }
+  .risk-card h4 {
+    font-family: var(--serif); font-size: 16px; font-weight: 500; margin: 0 0 8px;
+  }
+  .risk-card p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+  /* ---------- Takeaways ---------- */
+  .takes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .take {
+    background: var(--panel); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0; padding: 16px 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .take .n {
+    font-family: var(--serif); font-style: italic; font-size: 24px;
+    color: var(--accent); font-weight: 400; line-height: 1;
+    min-width: 28px;
+  }
+  .take p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+  .take p strong { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    color: var(--ink-mute); text-transform: uppercase;
+  }
+
+  /* ==========================================================
+     MOBILE — phones first
+     ========================================================== */
+  @media (max-width: 760px) {
+    .wrap { padding: 24px 16px 80px; }
+    .top { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .meta { text-align: left; }
+    .kpis { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .kpi { padding: 16px; }
+    .kpi .label { font-size: 9.5px; margin-bottom: 8px; }
+    .kpi .sub { font-size: 11px; }
+    .grid-2, .grid-3, .themes, .pattern, .risks, .takes { grid-template-columns: 1fr; }
+    .canvas-wrap { height: 680px; }
+    .canvas-wrap.short { height: 280px; }
+    .focus-chart { height: 360px; }
+    section { margin-bottom: 40px; }
+    .panel { padding: 16px; }
+
+    /* Tables become cards on mobile */
+    .tbl-wrap { overflow: visible; }
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tbody tr {
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px; margin-bottom: 10px;
+      display: grid; grid-template-columns: 1fr auto; gap: 8px 12px;
+    }
+    tbody tr:hover { background: var(--bg-2); }
+    tbody td {
+      padding: 0; border: 0; font-size: 12.5px;
+      display: flex; align-items: center;
+    }
+    tbody td::before {
+      content: attr(data-l);
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em;
+      color: var(--ink-mute); text-transform: uppercase;
+      min-width: 70px; margin-right: 10px;
+    }
+    tbody td[data-l=""]::before { display: none; }
+    tbody td.full { grid-column: 1 / -1; }
+    tbody td.head {
+      grid-column: 1 / -1; padding-bottom: 8px;
+      border-bottom: 1px solid var(--line); margin-bottom: 4px;
+      justify-content: space-between;
+    }
+    tbody td.head::before { display: none; }
+    .num { text-align: left; }
+  }
+  @media (max-width: 400px) {
+    h1 { font-size: 28px; }
+    .kpis { grid-template-columns: 1fr; }
+    .focus-chart { height: 320px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER TAPE -->
+<div class="tape">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embed/widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"description":"SNDK","proName":"NASDAQ:SNDK"},
+        {"description":"WDC","proName":"NASDAQ:WDC"},
+        {"description":"LITE","proName":"NASDAQ:LITE"},
+        {"description":"BE","proName":"NYSE:BE"},
+        {"description":"CCJ","proName":"NYSE:CCJ"},
+        {"description":"UUUU","proName":"NYSEAMERICAN:UUUU"},
+        {"description":"NXE","proName":"NYSE:NXE"},
+        {"description":"LEU","proName":"NYSEAMERICAN:LEU"},
+        {"description":"BWXT","proName":"NYSE:BWXT"},
+        {"description":"BWXT","proName":"NYSE:BWXT"},
+        {"description":"FN","proName":"NYSE:FN"},
+        {"description":"VKTX","proName":"NASDAQ:VKTX"},
+        {"description":"RDW","proName":"NYSE:RDW"},
+        {"description":"PL","proName":"NYSE:PL"}
+      ],
+      "showSymbolLogo": true,
+      "isTransparent": true,
+      "displayMode": "adaptive",
+      "colorTheme": "dark",
+      "locale": "en"
+    }
+    </script>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="top">
+    <div>
+      <div class="eyebrow">Equity Research · Global Markets</div>
+      <h1>Twelve months of <em>winners</em>,<br/>and what came next.</h1>
+      <p class="lede">The largest percentage gainers across global equities, May 2025 – May 2026 — the themes that drove them, the patterns that preceded them, and the lookalikes that may be earlier in their cycle. Tap any ticker to open a live chart.</p>
+    </div>
+    <div class="meta">
+      <div class="pulse">LIVE BRIEFING</div>
+      <div>VOL. 01 · MAY 2026</div>
+      <div>14 SOURCES · 35 NAMES</div>
+    </div>
+  </header>
+
+  <!-- KPI CARDS -->
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label">Top Gainer</div>
+      <div class="value mono accent">+96,067<span style="font-size:16px">%</span></div>
+      <div class="sub">SHAZ · Speculative AI</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Dominant Theme</div>
+      <div class="value">AI Infra<br/><span style="font-size:15px; color:var(--ink-soft); font-style:italic; font-family:var(--serif)">beyond GPUs</span></div>
+      <div class="sub">Storage · Optics · Power</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Earliest-Cycle</div>
+      <div class="value">Uranium<br/><span style="font-size:15px; color:var(--ink-soft); font-style:italic; font-family:var(--serif)">& nuclear fuel</span></div>
+      <div class="sub">Base case $95–110/lb</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Watchlist</div>
+      <div class="value mono">15</div>
+      <div class="sub">6 themes · 3 listings</div>
+    </div>
+  </div>
+
+  <!-- LIVE FOCUS CHART -->
+  <section id="focus">
+    <div class="sec-head">
+      <h2><span class="num">◎</span>Live chart</h2>
+      <p>Tap any ticker anywhere on this page to load it here.</p>
+    </div>
+    <div class="panel">
+      <div class="focus-bar">
+        <div class="label">Now viewing</div>
+        <div class="now" id="focusNow">NASDAQ:SNDK · Sandisk</div>
+      </div>
+      <div class="focus-chart" id="tvFocus"></div>
+    </div>
+  </section>
+
+  <!-- TOP PERFORMERS -->
+  <section>
+    <div class="sec-head">
+      <h2><span class="num">01</span>Top performers</h2>
+      <p>Largest individual percentage gainers — dispersion across AI infrastructure, biotech, and small-cap speculation.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel chart-host">
+        <div class="h">
+          <h3>Top 20 by 1-year return</h3>
+          <div class="legend">log · % gain</div>
+        </div>
+        <div class="canvas-wrap tall"><canvas id="perfChart"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="chart-host">
+          <div class="h"><h3>Theme split</h3><div class="legend">% of top 20</div></div>
+          <div class="canvas-wrap short"><canvas id="themeDonut"></canvas></div>
+        </div>
+        <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line); font-size:13px; color:var(--ink-soft); line-height:1.6">
+          <strong style="color:var(--ink); font-weight:500">Pattern note.</strong> Most outsized winners cluster around AI infrastructure and biotech — but the largest <em>tradeable</em> theme by ETF leadership was uranium, semis, silver, and Korea exposure.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px;">
+      <h3 style="font-family:var(--serif); font-weight:500; font-size:17px; margin:0 0 12px">Detail · tap a ticker to chart it</h3>
+      <div class="tbl-wrap">
+        <table id="topTable">
+          <thead>
+            <tr>
+              <th data-sort="rank" class="sorted">#<span class="arrow">▲</span></th>
+              <th data-sort="ticker">Ticker</th>
+              <th data-sort="name">Company</th>
+              <th data-sort="theme">Theme</th>
+              <th data-sort="gain" class="num">1Y Gain<span class="arrow"></span></th>
+              <th data-sort="cap" class="num">Mkt Cap<span class="arrow"></span></th>
+              <th>Driver</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEMES -->
+  <section>
+    <div class="sec-head">
+      <h2><span class="num">02</span>Theme breakdown</h2>
+      <p>Where the money went, and where cycle stage suggests opportunity still lies.</p>
+    </div>
+    <div class="themes" id="themesGrid"></div>
+  </section>
+
+  <!-- PATTERN -->
+  <section>
+    <div class="sec-head">
+      <h2><span class="num">03</span>The pre-run pattern</h2>
+      <p>What the biggest winners shared 6–12 months before the move. A screening template, not a guarantee.</p>
+    </div>
+    <div class="pattern">
+      <div class="p-step">
+        <div class="step-n">STEP 01</div>
+        <h4>Revenue inflection</h4>
+        <p>Revenue already accelerating in filings — before the story is obvious in the price.</p>
+      </div>
+      <div class="p-step">
+        <div class="step-n">STEP 02</div>
+        <h4>Margin expansion</h4>
+        <p>Operating leverage or pricing power shows up in gross and incremental margin trends.</p>
+      </div>
+      <div class="p-step">
+        <div class="step-n">STEP 03</div>
+        <h4>Customer validation</h4>
+        <p>Named hyperscaler, sovereign or defence customers; backlog growth; multi-year wins.</p>
+      </div>
+      <div class="p-step">
+        <div class="step-n">STEP 04</div>
+        <h4>Narrative shift</h4>
+        <p>Reframed from "old economy" to "strategic bottleneck" for AI, nuclear, defence, or energy transition.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WATCHLIST -->
+  <section>
+    <div class="sec-head">
+      <h2><span class="num">04</span>Lookalike watchlist</h2>
+      <p>Names exhibiting the pre-run pattern in themes where runway remains. Filter by theme below.</p>
+    </div>
+    <div class="panel">
+      <div class="chips" id="watchChips">
+        <div class="chip active" data-filter="all">All · 15</div>
+        <div class="chip" data-filter="uranium">Uranium / Nuclear</div>
+        <div class="chip" data-filter="defense">Defence / Space</div>
+        <div class="chip" data-filter="ai">AI Infra</div>
+        <div class="chip" data-filter="biotech">Biotech</div>
+      </div>
+      <div class="tbl-wrap">
+        <table id="watchTable">
+          <thead>
+            <tr>
+              <th data-sort="ticker" class="sorted">Ticker<span class="arrow">▲</span></th>
+              <th data-sort="theme">Theme</th>
+              <th data-sort="stage">Stage</th>
+              <th>Thesis</th>
+              <th>Catalyst</th>
+              <th>Main Risk</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISKS -->
+  <section>
+    <div class="sec-head">
+      <h2><span class="num">05</span>Bubble signals</h2>
+      <p>Where late-cycle behaviour is most visible and risk/reward looks worst.</p>
+    </div>
+    <div class="risks">
+      <div class="risk-card">
+        <div class="lvl">Highest Heat</div>
+        <h4>Quantum pure-plays</h4>
+        <p>Real strategic theme with public funding, but listed pure-plays have moved on headlines and retail enthusiasm far ahead of revenue.</p>
+      </div>
+      <div class="risk-card">
+        <div class="lvl">Late Cycle</div>
+        <h4>Mega-run AI storage & fuel cells</h4>
+        <p>SNDK, WDC, BE have re-rated dramatically on scarcity narratives. Continued upside requires flawless execution.</p>
+      </div>
+      <div class="risk-card">
+        <div class="lvl">Speculation</div>
+        <h4>Micro-cap biotech & AI</h4>
+        <p>Extreme percentage gains disconnected from durable cash flow. Low float, retail-driven. Position only if explicitly speculative.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAKEAWAYS -->
+  <section>
+    <div class="sec-head">
+      <h2><span class="num">06</span>Actionable takeaways</h2>
+      <p>The shortlist — what to do with this research.</p>
+    </div>
+    <div class="takes">
+      <div class="take"><div class="n">i.</div><p>Best early-stage hunting ground looks like <strong>uranium and nuclear fuel/services</strong> — especially UUUU, NXE, LEU and diversified uranium exposure.</p></div>
+      <div class="take"><div class="n">ii.</div><p>UK defence second-liners — <strong>QinetiQ, Babcock, Avon Protection</strong> — are more accessible and less crowded than the most owned US themes.</p></div>
+      <div class="take"><div class="n">iii.</div><p>Use prior winners like <strong>SNDK, WDC, LITE, Bloom</strong> as <em>templates for pattern recognition</em>, not fresh entries after their re-ratings.</p></div>
+      <div class="take"><div class="n">iv.</div><p>Hunt for filing evidence: <strong>accelerating revenue, better margins, named customers, backlog growth</strong>, and a strategic bottleneck role before mainstream saturation.</p></div>
+      <div class="take"><div class="n">v.</div><p>Avoid the most <strong>media-saturated and retail-driven</strong> segments unless position sizing is explicitly speculative.</p></div>
+      <div class="take"><div class="n">vi.</div><p>The pattern that worked: <strong>"revenue is already inflecting because AI / nuclear / defence customers need this bottleneck solved"</strong> — not "company mentions AI."</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Sources · StockAnalysis · Virtue of Selfish Investing · Themes ETFs · Bankrate · Litefinance · 14 total</div>
+    <div>Period · 2025-05 → 2026-05</div>
+  </footer>
+
+</div>
+
+<script>
+/* =========================
+   Data — every record carries a TradingView symbol
+   ========================= */
+const TOP = [
+  {rank:1, ticker:'SHAZ', sym:'NASDAQ:SHAZ',  name:'SharonAI',           theme:'spec',    themeLabel:'Speculative AI', gain:96067, cap:0.965, driver:'Extreme AI narrative, low float'},
+  {rank:2, ticker:'AXTI', sym:'NASDAQ:AXTI',  name:'AXT',                theme:'semi',    themeLabel:'Semi Materials', gain:8423,  cap:7.65,  driver:'AI/compound semi demand'},
+  {rank:3, ticker:'SNDK', sym:'NASDAQ:SNDK',  name:'Sandisk',            theme:'ai',      themeLabel:'AI Storage',     gain:3790,  cap:221,   driver:'AI data-centre NAND demand'},
+  {rank:4, ticker:'BW',   sym:'NYSE:BW',      name:'Babcock & Wilcox',   theme:'energy',  themeLabel:'Nuclear / Power',gain:2428,  cap:3.0,   driver:'AI power + nuclear comeback'},
+  {rank:5, ticker:'ABVX', sym:'NASDAQ:ABVX',  name:'Abivax',             theme:'biotech', themeLabel:'Biotech',        gain:2043,  cap:9.7,   driver:'Clinical data re-rating'},
+  {rank:6, ticker:'BE',   sym:'NYSE:BE',      name:'Bloom Energy',       theme:'energy',  themeLabel:'AI DC Power',    gain:1643,  cap:89.6,  driver:'Fuel cells for AI data centres'},
+  {rank:7, ticker:'CELC', sym:'NASDAQ:CELC',  name:'Celcuity',           theme:'biotech', themeLabel:'Biotech',        gain:1238,  cap:7.0,   driver:'Oncology pipeline re-rating'},
+  {rank:8, ticker:'NVTS', sym:'NASDAQ:NVTS',  name:'Navitas Semi',       theme:'semi',    themeLabel:'Power Semi',     gain:1228,  cap:5.9,   driver:'GaN/SiC AI power efficiency'},
+  {rank:9, ticker:'LITE', sym:'NASDAQ:LITE',  name:'Lumentum',           theme:'ai',      themeLabel:'AI Optical',     gain:1162,  cap:68.2,  driver:'Optical interconnect for AI'},
+  {rank:10,ticker:'RLMD', sym:'NASDAQ:RLMD',  name:'Relmada',            theme:'biotech', themeLabel:'Biotech',        gain:1108,  cap:0.775, driver:'Event-driven recovery'},
+  {rank:11,ticker:'HYMC', sym:'NASDAQ:HYMC',  name:'Hycroft Mining',     theme:'metals',  themeLabel:'Gold Mining',    gain:1093,  cap:3.0,   driver:'Precious metals leverage'},
+  {rank:12,ticker:'PL',   sym:'NYSE:PL',      name:'Planet Labs',        theme:'space',   themeLabel:'Space / Geo AI', gain:1071,  cap:15.7,  driver:'Space + AI geospatial data'},
+  {rank:13,ticker:'LWLG', sym:'NASDAQ:LWLG',  name:'Lightwave Logic',    theme:'ai',      themeLabel:'Photonics',      gain:1045,  cap:2.1,   driver:'AI optical/photonics narrative'},
+  {rank:14,ticker:'TNGX', sym:'NASDAQ:TNGX',  name:'Tango Therapeutics', theme:'biotech', themeLabel:'Biotech',        gain:1043,  cap:3.1,   driver:'Oncology pipeline re-rating'},
+  {rank:15,ticker:'SOGP', sym:'NASDAQ:SOGP',  name:'Sound Group',        theme:'spec',    themeLabel:'Speculative',    gain:1026,  cap:0.051, driver:'Liquidity-driven speculation'},
+  {rank:16,ticker:'SPRB', sym:'NASDAQ:SPRB',  name:'Spruce Biosciences', theme:'biotech', themeLabel:'Biotech',        gain:983,   cap:0.142, driver:'Micro-cap speculation'},
+  {rank:17,ticker:'NBTX', sym:'NASDAQ:NBTX',  name:'Nanobiotix',         theme:'biotech', themeLabel:'Biotech',        gain:949,   cap:1.9,   driver:'Clinical optionality'},
+  {rank:18,ticker:'AEHR', sym:'NASDAQ:AEHR',  name:'Aehr Test Systems',  theme:'semi',    themeLabel:'Semi Testing',   gain:921,   cap:2.9,   driver:'AI/power-semi test recovery'},
+  {rank:19,ticker:'ONDS', sym:'NASDAQ:ONDS',  name:'Ondas',              theme:'defense', themeLabel:'Defence Drones', gain:874,   cap:4.6,   driver:'Defence drone autonomy'},
+  {rank:20,ticker:'WDC',  sym:'NASDAQ:WDC',   name:'Western Digital',    theme:'ai',      themeLabel:'AI Storage',     gain:855,   cap:166,   driver:'Cloud + AI storage demand'},
+];
+
+const THEMES = [
+  {key:'ai',      icon:'TH·01 · MID → LATE',     name:'AI Infra (beyond GPUs)',   desc:'Storage, optics, power semis, testing, data-centre power. Hyperscaler capex remains large and requires this at scale.', heat:78, count:'4 of top 20'},
+  {key:'uranium', icon:'TH·02 · EARLY → MID',    name:'Uranium & Nuclear',        desc:'Structural supply deficit. Base case $95–110/lb by end-2026. AI power demand reinforces baseload thesis.',            heat:35, count:'Earliest cycle'},
+  {key:'defense', icon:'TH·03 · MID',            name:'Defence, Space, Autonomy', desc:'European defence spend structurally re-rated. UK names (QQ, BAB, AVON) less crowded than US primes.',                 heat:52, count:'2 of top 20'},
+  {key:'metals',  icon:'TH·04 · MID → LATE',     name:'Metals & Energy',          desc:'Silver, gold miners and oil all delivered. Macro hedging + industrial demand + operating leverage.',                  heat:68, count:'ETF leadership'},
+  {key:'biotech', icon:'TH·05 · VARIABLE',       name:'Biotech',                  desc:'Many of the largest individual gainers — but binary trial outcomes mean the pattern is less transferable.',          heat:60, count:'7 of top 20'},
+  {key:'spec',    icon:'TH·06 · LATE',           name:'Quantum & Speculation',    desc:'Real strategic theme, but listed pure-plays moved on headlines far faster than the current revenue base.',           heat:92, count:'Highest risk'},
+];
+
+const WATCH = [
+  {ticker:'CCJ',    sym:'NYSE:CCJ',          listing:'NYSE',     theme:'uranium', themeLabel:'Uranium Major',     stage:'mid',       thesis:'Core uranium producer leveraged to supply deficit',          catalyst:'Uranium price + long-term contracts',  risk:'Uranium price disappointment'},
+  {ticker:'UUUU',   sym:'NYSEAMERICAN:UUUU', listing:'NYSE',     theme:'uranium', themeLabel:'Uranium + REE',     stage:'early/mid', thesis:'High-beta U + rare earths, profitability inflection',        catalyst:'First profitable year, REE progress', risk:'Execution & dilution'},
+  {ticker:'NXE',    sym:'NYSE:NXE',          listing:'NYSE/TSX', theme:'uranium', themeLabel:'Uranium Developer', stage:'early',     thesis:'World-class deposit, upside on permitting & supply tightness', catalyst:'Rook I permitting, financing',      risk:'Permitting, no production yet'},
+  {ticker:'URG',    sym:'NYSEAMERICAN:URG',  listing:'NYSE',     theme:'uranium', themeLabel:'Small U Producer',  stage:'early',     thesis:'Smaller producer with cycle leverage',                       catalyst:'Production stability, contracts',     risk:'Balance sheet & liquidity'},
+  {ticker:'LEU',    sym:'NYSEAMERICAN:LEU',  listing:'NYSE',     theme:'uranium', themeLabel:'Nuclear Fuel / HALEU', stage:'mid',    thesis:'Cleanest listed US nuclear-fuel bottleneck name',            catalyst:'HALEU contracts, policy support',     risk:'Policy dependency, valuation'},
+  {ticker:'BWXT',   sym:'NYSE:BWXT',         listing:'NYSE',     theme:'defense', themeLabel:'Nuclear / Defence', stage:'mid',       thesis:'Nuclear-defence compounder, naval + SMR optionality',        catalyst:'New nuclear & defence contracts',     risk:'Premium valuation'},
+  {ticker:'KAP.IL', sym:'LSE:KAP',           listing:'LSE',      theme:'uranium', themeLabel:'Uranium Producer',  stage:'mid/late',  thesis:'Largest listed uranium producer, central to supply',         catalyst:'Uranium price, volumes, dividend',    risk:'Already re-rated'},
+  {ticker:'QQ.L',   sym:'LSE:QQ',            listing:'LSE',      theme:'defense', themeLabel:'Defence Tech',      stage:'early/mid', thesis:'UK defence tech with order intake & backlog momentum',       catalyst:'Margin improvement, contract wins',   risk:'Execution, especially US business'},
+  {ticker:'BAB.L',  sym:'LSE:BAB',           listing:'LSE',      theme:'defense', themeLabel:'Defence / Nuclear', stage:'mid',       thesis:'Defence turnaround with nuclear & long-cycle exposure',      catalyst:'AUKUS / nuclear submarine work',      risk:'Contract overruns, procurement'},
+  {ticker:'AVON.L', sym:'LSE:AVON',          listing:'LSE',      theme:'defense', themeLabel:'Defence Protection', stage:'early/mid', thesis:'Small UK defence supplier with EPS rebound + orders',       catalyst:'US / European order wins',            risk:'Lumpy orders, small-cap liquidity'},
+  {ticker:'PENG',   sym:'NASDAQ:PENG',       listing:'Nasdaq',   theme:'ai',      themeLabel:'AI Infra / HPC',    stage:'mid',       thesis:'Smaller AI/HPC supplier benefiting if capex broadens',       catalyst:'New customer wins, margin',           risk:'Customer concentration'},
+  {ticker:'FN',     sym:'NYSE:FN',           listing:'NYSE',     theme:'ai',      themeLabel:'Optical Manufacturing', stage:'mid/late', thesis:'Quality contract manufacturer for AI optical components', catalyst:'Optical revenue growth',              risk:'Priced-for-quality, concentration'},
+  {ticker:'LASR',   sym:'NASDAQ:LASR',       listing:'Nasdaq',   theme:'defense', themeLabel:'Lasers / Defence',  stage:'mid',       thesis:'Lasers across defence + industrial / semicap',               catalyst:'Directed-energy defence orders',      risk:'Profitability, order timing'},
+  {ticker:'RDW',    sym:'NYSE:RDW',          listing:'NYSE',     theme:'defense', themeLabel:'Space Infrastructure', stage:'mid',     thesis:'Space infra with NASA / defence / commercial optionality',    catalyst:'NASA / defence contracts',            risk:'Losses & dilution'},
+  {ticker:'VKTX',   sym:'NASDAQ:VKTX',       listing:'Nasdaq',   theme:'biotech', themeLabel:'GLP-1 / Obesity',   stage:'early/mid', thesis:'Obesity drug optionality via VK2735 programmes',             catalyst:'Phase 3 progress, oral data',         risk:'Binary clinical risk, competition'},
+];
+
+const themeColor = (t) => ({
+  ai:'#60a5fa', uranium:'#2dd4bf', defense:'#e6b450', biotech:'#f472b6',
+  metals:'#fbbf24', energy:'#fb923c', space:'#a78bfa', semi:'#22d3ee', spec:'#ef4444'
+}[t] || '#aab2c0');
+
+/* =========================
+   Chart.js defaults
+   ========================= */
+Chart.defaults.color = '#aab2c0';
+Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+Chart.defaults.font.size = 11;
+Chart.defaults.borderColor = '#232a38';
+
+/* =========================
+   Performance bar chart (log)
+   ========================= */
+const sortedForBar = [...TOP].sort((a,b)=>a.gain-b.gain);
+new Chart(document.getElementById('perfChart'), {
+  type: 'bar',
+  data: {
+    labels: sortedForBar.map(d => d.ticker),
+    datasets: [{
+      data: sortedForBar.map(d => d.gain),
+      backgroundColor: sortedForBar.map(d => themeColor(d.theme) + 'cc'),
+      borderColor: sortedForBar.map(d => themeColor(d.theme)),
+      borderWidth: 1,
+      borderRadius: 3,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0f131a',
+        borderColor: '#e6b450',
+        borderWidth: 1,
+        titleFont: { family: 'JetBrains Mono', weight: 600, size: 12 },
+        bodyFont: { family: 'Inter', size: 12 },
+        padding: 10,
+        cornerRadius: 6,
+        callbacks: {
+          title: (items) => { const d = sortedForBar[items[0].dataIndex]; return `${d.ticker} · ${d.name}`; },
+          label: (item) => { const d = sortedForBar[item.dataIndex]; return [`+${d.gain.toLocaleString()}%`, d.themeLabel, d.driver]; }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'logarithmic',
+        grid: { color: '#1c2230', drawTicks: false },
+        ticks: { font: { family: 'JetBrains Mono', size: 10 }, callback: v => v >= 1000 ? (v/1000)+'k%' : v+'%' }
+      },
+      y: { grid: { display: false }, ticks: { font: { family: 'JetBrains Mono', size: 11, weight: 600 } } }
+    },
+    onClick: (evt, els) => {
+      if (!els.length) return;
+      const d = sortedForBar[els[0].index];
+      loadFocus(d.sym, d.ticker + ' · ' + d.name);
+    }
+  }
+});
+
+/* =========================
+   Theme donut
+   ========================= */
+const themeCounts = {};
+TOP.forEach(d => themeCounts[d.themeLabel] = (themeCounts[d.themeLabel]||0) + 1);
+const themeLabels = Object.keys(themeCounts);
+const themeData = Object.values(themeCounts);
+const themeKeyByLabel = {};
+TOP.forEach(d => themeKeyByLabel[d.themeLabel] = d.theme);
+
+new Chart(document.getElementById('themeDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: themeLabels,
+    datasets: [{
+      data: themeData,
+      backgroundColor: themeLabels.map(l => themeColor(themeKeyByLabel[l])),
+      borderColor: '#141922', borderWidth: 2, hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '62%',
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 11, family: 'Inter' }, padding: 8, boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: 'circle' } },
+      tooltip: { backgroundColor: '#0f131a', borderColor: '#e6b450', borderWidth: 1, padding: 10, cornerRadius: 6,
+        callbacks: { label: (item) => ` ${item.label}: ${item.parsed} ${item.parsed===1?'name':'names'}` } }
+    }
+  }
+});
+
+/* =========================
+   TradingView focus chart
+   ========================= */
+let tvWidget = null;
+function loadFocus(sym, label) {
+  document.getElementById('focusNow').textContent = sym + (label ? ' · ' + label.split(' · ').slice(1).join(' · ') : '');
+  document.getElementById('tvFocus').innerHTML = '';
+  if (typeof TradingView === 'undefined') return;
+  tvWidget = new TradingView.widget({
+    autosize: true,
+    symbol: sym,
+    interval: 'W',
+    timezone: 'Etc/UTC',
+    theme: 'dark',
+    style: '1',
+    locale: 'en',
+    toolbar_bg: '#141922',
+    enable_publishing: false,
+    hide_top_toolbar: false,
+    hide_legend: false,
+    save_image: false,
+    container_id: 'tvFocus',
+    backgroundColor: '#0f131a',
+    gridColor: 'rgba(255,255,255,0.04)',
+    allow_symbol_change: true,
+    studies: [],
+    overrides: {
+      'paneProperties.background': '#0f131a',
+      'paneProperties.vertGridProperties.color': 'rgba(255,255,255,0.04)',
+      'paneProperties.horzGridProperties.color': 'rgba(255,255,255,0.04)',
+      'scalesProperties.textColor': '#aab2c0'
+    }
+  });
+}
+function tvLinkFor(sym) {
+  return 'https://www.tradingview.com/symbols/' + sym.replace(':','-') + '/';
+}
+function tickerHTML(d) {
+  return `<a class="tk" href="${tvLinkFor(d.sym)}" target="_blank" rel="noopener"
+            data-sym="${d.sym}" data-label="${d.ticker} · ${d.name || d.themeLabel}">
+            ${d.ticker}${d.listing ? `<span class="listing">${d.listing}</span>` : ''}
+            <span class="ext">↗</span>
+          </a>`;
+}
+
+/* Initialize focus chart with first top stock once TradingView loads */
+function initFocus() {
+  if (typeof TradingView !== 'undefined') {
+    loadFocus('NASDAQ:SNDK', 'SNDK · Sandisk');
+  } else {
+    setTimeout(initFocus, 250);
+  }
+}
+initFocus();
+
+/* Delegate ticker clicks → load in focus chart, but keep ext-link tap on the arrow */
+document.addEventListener('click', (e) => {
+  const tk = e.target.closest('.tk');
+  if (!tk) return;
+  // If user clicked the external arrow, let the native link work
+  if (e.target.classList.contains('ext')) return;
+  e.preventDefault();
+  loadFocus(tk.dataset.sym, tk.dataset.label);
+  document.querySelectorAll('.tk.active').forEach(x => x.classList.remove('active'));
+  tk.classList.add('active');
+  // Smooth scroll to chart on mobile
+  if (window.innerWidth <= 760) {
+    document.getElementById('focus').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+
+/* =========================
+   Top performers table
+   ========================= */
+const topTbody = document.querySelector('#topTable tbody');
+let topSort = { key: 'rank', dir: 1 };
+
+function renderTop() {
+  const sorted = [...TOP].sort((a,b) => {
+    let va = a[topSort.key], vb = b[topSort.key];
+    if (typeof va === 'string') return va.localeCompare(vb) * topSort.dir;
+    return (va - vb) * topSort.dir;
+  });
+  topTbody.innerHTML = sorted.map(d => `
+    <tr>
+      <td class="head" data-l="">
+        <span style="font-family:var(--mono); color:var(--ink-mute); font-size:11px">#${String(d.rank).padStart(2,'0')}</span>
+        ${tickerHTML(d)}
+      </td>
+      <td data-l="Rank" class="num" style="color:var(--ink-mute); text-align:left">${String(d.rank).padStart(2,'0')}</td>
+      <td data-l="Ticker">${tickerHTML(d)}</td>
+      <td data-l="Company">${d.name}</td>
+      <td data-l="Theme"><span class="tag ${d.theme}">${d.themeLabel}</span></td>
+      <td data-l="1Y Gain" class="num gain-val">+${d.gain.toLocaleString()}%</td>
+      <td data-l="Mkt Cap" class="num">${d.cap >= 1 ? d.cap.toFixed(1)+'B' : (d.cap*1000).toFixed(0)+'M'}</td>
+      <td data-l="Driver" class="full" style="color:var(--ink-soft); font-size:12.5px">${d.driver}</td>
+    </tr>
+  `).join('');
+}
+renderTop();
+
+document.querySelectorAll('#topTable thead th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    const k = th.dataset.sort;
+    if (topSort.key === k) topSort.dir *= -1;
+    else { topSort.key = k; topSort.dir = (k==='rank' || k==='ticker' || k==='name' || k==='theme') ? 1 : -1; }
+    document.querySelectorAll('#topTable thead th').forEach(t => {
+      t.classList.remove('sorted');
+      const a = t.querySelector('.arrow'); if (a) a.textContent = '';
+    });
+    th.classList.add('sorted');
+    th.querySelector('.arrow').textContent = topSort.dir === 1 ? '▲' : '▼';
+    renderTop();
+  });
+});
+
+/* =========================
+   Theme cards
+   ========================= */
+document.getElementById('themesGrid').innerHTML = THEMES.map(t => `
+  <div class="theme-card">
+    <div class="icon">${t.icon}</div>
+    <h3>${t.name}</h3>
+    <div class="desc">${t.desc}</div>
+    <div class="stat-row">
+      <div class="l">${t.count}</div>
+      <div class="v">${t.heat}<span style="font-size:11px; color:var(--ink-mute); font-weight:400">/100</span></div>
+    </div>
+    <div class="heat"><span style="width:${t.heat}%"></span></div>
+  </div>
+`).join('');
+
+/* =========================
+   Watchlist with filters
+   ========================= */
+const watchTbody = document.querySelector('#watchTable tbody');
+let watchFilter = 'all';
+let watchSort = { key: 'ticker', dir: 1 };
+
+function renderWatch() {
+  const filtered = WATCH.filter(w => watchFilter === 'all' || w.theme === watchFilter);
+  const sorted = [...filtered].sort((a,b) => {
+    let va = a[watchSort.key], vb = b[watchSort.key];
+    if (typeof va === 'string') return va.localeCompare(vb) * watchSort.dir;
+    return (va - vb) * watchSort.dir;
+  });
+  watchTbody.innerHTML = sorted.map(w => `
+    <tr>
+      <td class="head" data-l="">
+        ${tickerHTML(w)}
+        <span class="tag ${w.theme}">${w.themeLabel}</span>
+      </td>
+      <td data-l="Ticker">${tickerHTML(w)}</td>
+      <td data-l="Theme"><span class="tag ${w.theme}">${w.themeLabel}</span></td>
+      <td data-l="Stage"><span class="stage" data-stage="${w.stage}"><span class="bars"><i></i><i></i><i></i><i></i></span>${w.stage}</span></td>
+      <td data-l="Thesis" class="full" style="color:var(--ink); font-size:12.5px">${w.thesis}</td>
+      <td data-l="Catalyst" class="full" style="color:var(--ink-soft); font-size:12.5px">${w.catalyst}</td>
+      <td data-l="Risk" class="full" style="color:var(--ink-mute); font-size:12.5px">${w.risk}</td>
+    </tr>
+  `).join('');
+}
+renderWatch();
+
+document.querySelectorAll('#watchChips .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#watchChips .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    watchFilter = c.dataset.filter;
+    renderWatch();
+  });
+});
+
+document.querySelectorAll('#watchTable thead th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    const k = th.dataset.sort;
+    if (watchSort.key === k) watchSort.dir *= -1;
+    else { watchSort.key = k; watchSort.dir = 1; }
+    document.querySelectorAll('#watchTable thead th').forEach(t => {
+      t.classList.remove('sorted');
+      const a = t.querySelector('.arrow'); if (a) a.textContent = '';
+    });
+    th.classList.add('sorted');
+    th.querySelector('.arrow').textContent = watchSort.dir === 1 ? '▲' : '▼';
+    renderWatch();
+  });
+});
+</script>
+</body>
+</html>
